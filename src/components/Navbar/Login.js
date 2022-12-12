@@ -26,7 +26,7 @@ export default function Register({ onLogin }) {
 
     function handleSubmit(e) {
         e.preventDefault()
-        fetch("https://phase-4-project-production.up.railway.app/login", {
+        fetch("https://dog-house-production.up.railway.app/login", {
             method: "POST",
             headers: {
                 "Access-Control-Allow-Origin": "*",
