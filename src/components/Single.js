@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 //import '../../assets'
 import "../styles/Single.css";
-import { RiDeleteBin6Line } from "react-icons/ri"
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const colors = {
   orange: "#FFBA5A",
@@ -12,14 +12,14 @@ const colors = {
 function Single({ user, id }) {
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
-  const [house, setHouse] = useState({})
-  const [reviews, setReviews] = useState(false)
-  const[review, setReview]=useState({
-    comment:''
-  })
+  const [house, setHouse] = useState({});
+  const [reviews, setReviews] = useState(false);
+  const [review, setReview] = useState({
+    comment: "",
+  });
 
   const stars = Array(5).fill(0);
-  const [comment, setComment] = useState('')
+  const [comment, setComment] = useState("");
   const handleClick = (value) => {
     setCurrentValue(value);
   };
@@ -34,75 +34,78 @@ function Single({ user, id }) {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    e.target.reset()
-    fetch(`https://phase-4-project-production.up.railway.app/dog_houses/${house.id}/reviews`, {
-      method: "POST",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify({ comment, user_id: user.id }),
-    });
-    fetchPostedReview()
-
-  }
-  console.log(id)
-  useEffect(() => {
-    fetch(`https://phase-4-project-production.up.railway.app/dog_houses/${id}`,
-    {
-      method: "GET",
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-type": "application/json; charset=UTF-8",
+    e.target.reset();
+    fetch(
+      `https://phase-4-project-production.up.railway.app/dog_houses/${house.id}/reviews`,
+      {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify({ comment, user_id: user.id }),
       }
-    })
-      .then(response => response.json()
-      )
-      .then((data) => {
-        console.log(data)
-        setHouse(data)
-      })
-
-  },[reviews])
-  console.log(house)
+    );
+    fetchPostedReview();
+  }
+  console.log(id);
+  useEffect(() => {
+    fetch(
+      `https://phase-4-project-production.up.railway.app/dog_houses/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }
+    ).then((response) => {
+      if (response.ok) {
+        response.json().then((data) => {
+          console.log(data);
+          setHouse(data);
+        });
+      }
+      else if(errors){
+        console.log(errors);
+      }
+    });
+  }, [reviews]);
+  console.log(house);
 
   function fetchPostedReview() {
-    setReviews(reviews => !reviews)
+    setReviews((reviews) => !reviews);
   }
 
   function handleDelete(id) {
     fetch(`https://phase-4-project-production.up.railway.app/reviews/${id}`, {
-      method: "DELETE"
-    })
-      .then(() => {
-        const updatedReviews = reviews.filter((review) => review.id !== id)
-        setReviews(updatedReviews)      
-      })
-      fetchPostedReview()
+      method: "DELETE",
+    }).then(() => {
+      const updatedReviews = reviews.filter((review) => review.id !== id);
+      setReviews(updatedReviews);
+    });
+    fetchPostedReview();
   }
-  function handleUpdate(id){
-    let comment=prompt('Write down your review');
-    setReview(comment)
-    console.log(review)
+  function handleUpdate(id) {
+    let comment = prompt("Write down your review");
+    setReview(comment);
+    console.log(review);
     fetch(`https://phase-4-project-production.up.railway.app/reviews/${id}`, {
       method: "PATCH",
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
-      body:JSON.stringify({comment:review}),
-    })
-    .then(r=>
-     { if(r.ok){
-        r.json().then((data)=>{
-          setReviews(data)
-        })
-        fetchPostedReview()
+      body: JSON.stringify({ comment: review }),
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((data) => {
+          setReviews(data);
+        });
+        fetchPostedReview();
       }
-    })
-    
+    });
   }
-
 
   return (
     <div className="single">
@@ -117,18 +120,26 @@ function Single({ user, id }) {
         {house.reviews?.map((review) => (
           <ul className="reviews">
             <li>{review.comment}</li>
-            <button style={{ color: "white",
-              backgroundColor: "red",
-              padding: "2px",
-              width: 50,
-              borderRadius: 25 }}
+            <button
+              style={{
+                color: "white",
+                backgroundColor: "red",
+                padding: "2px",
+                width: 50,
+                borderRadius: 25,
+              }}
               onClick={() => handleDelete(review.id)}
-            ><RiDeleteBin6Line /></button>
-            <button style={{marginLeft: "10px"}} onClick={() => handleUpdate(review.id)}>
-            <span role="img" aria-label="edit">
-              ✏️
-            </span>
-          </button>
+            >
+              <RiDeleteBin6Line />
+            </button>
+            <button
+              style={{ marginLeft: "10px" }}
+              onClick={() => handleUpdate(review.id)}
+            >
+              <span role="img" aria-label="edit">
+                ✏️
+              </span>
+            </button>
           </ul>
           // <p>{review.comment}</p>
         ))}
@@ -177,7 +188,7 @@ const styles = {
   stars: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   textarea: {
     border: "1px solid #A9A9A9",
@@ -187,14 +198,14 @@ const styles = {
     minHeight: 100,
     width: 500,
     justifyContent: "center",
-    bottom: "0px"
+    bottom: "0px",
   },
   button: {
     border: "1px solid #A9A9A9",
     borderRadius: 25,
     width: 300,
     padding: 10,
-    justifyContent: "center"
+    justifyContent: "center",
     // color:"#1D2DD4",
   },
   // doghouse: {
