@@ -34,6 +34,7 @@ export default function Signup({ onLogin }) {
     fetch("/signup", {
       method: "POST",
       headers: {
+        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -57,6 +58,7 @@ export default function Signup({ onLogin }) {
           if (errors === "Password confirmation doesn't match Password") {
             toastMessage();
           } else if (errors) {
+            console.log(errors);
             errorMessage();
           }
         });

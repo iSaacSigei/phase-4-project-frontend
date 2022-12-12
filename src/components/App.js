@@ -14,7 +14,13 @@ function App() {
   const [id, setId] = useState(0)
 
   useEffect(() => {
-    fetch('/me')
+    fetch('/me',{
+      method: 'GET',
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-type": "application/json; charset=UTF-8",
+      }
+    })
       .then((r) => {
         if (r.ok) {
           r.json().then((user) => setUser(user))
@@ -23,7 +29,14 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch('/dog_houses')
+    fetch('/dog_houses',{
+      method: 'GET',
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-type": "application/json; charset=UTF-8",
+
+      }
+    })
       .then(response => response.json())
       .then((data) => {
         console.log(data)

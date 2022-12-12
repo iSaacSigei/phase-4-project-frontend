@@ -38,7 +38,8 @@ function Single({ user, id }) {
     fetch(`/dog_houses/${house.id}/reviews`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Content-type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify({ comment, user_id: user.id }),
     });
@@ -47,7 +48,14 @@ function Single({ user, id }) {
   }
   console.log(id)
   useEffect(() => {
-    fetch(`/dog_houses/${id}`)
+    fetch(`/dog_houses/${id}`,
+    {
+      method: "GET",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-type": "application/json; charset=UTF-8",
+      }
+    })
       .then(response => response.json()
       )
       .then((data) => {
@@ -79,6 +87,7 @@ function Single({ user, id }) {
     fetch(`/reviews/${id}`, {
       method: "PATCH",
       headers: {
+        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
       body:JSON.stringify({comment:review}),
