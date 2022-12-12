@@ -31,7 +31,7 @@ export default function Signup({ onLogin }) {
   function handleSubmit(e) {
     e.preventDefault();
     setErrors([]);
-    fetch("/signup", {
+    fetch("https://phase-4-project-production.up.railway.app/signup", {
       method: "POST",
       headers: {
         "Access-Control-Allow-Origin": "*",
