@@ -59,11 +59,11 @@ function Single({ user, id }) {
       .then(response => response.json()
       )
       .then((data) => {
-        //console.log(data)
+        console.log(data)
         setHouse(data)
       })
 
-  })
+  },[reviews])
   console.log(house)
 
   function fetchPostedReview() {
