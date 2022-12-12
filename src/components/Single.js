@@ -55,7 +55,7 @@ function Single({ user, id }) {
         setHouse(data)
       })
 
-  }, [reviews])
+  })
   console.log(house)
 
   function fetchPostedReview() {
