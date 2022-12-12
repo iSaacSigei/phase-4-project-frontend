@@ -10,7 +10,7 @@ function Navbar({ user, setUser }) {
     };
 
     function handleLogout() {
-        fetch("https://phase-4-project-production.up.railway.app/logout", {
+        fetch("/logout", {
             method: "DELETE"
         })
             .then((r) => {

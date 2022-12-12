@@ -35,7 +35,7 @@ function Single({ user, id }) {
   function handleSubmit(e) {
     e.preventDefault();
     e.target.reset()
-    fetch(`https://phase-4-project-production.up.railway.app/dog_houses/${house.id}/reviews`, {
+    fetch(`/dog_houses/${house.id}/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ function Single({ user, id }) {
   }
   console.log(id)
   useEffect(() => {
-    fetch(`https://phase-4-project-production.up.railway.app/dog_houses/${id}`)
+    fetch(`/dog_houses/${id}`)
       .then(response => response.json()
       )
       .then((data) => {
@@ -63,7 +63,7 @@ function Single({ user, id }) {
   }
 
   function handleDelete(id) {
-    fetch(`https://phase-4-project-production.up.railway.app/reviews/${id}`, {
+    fetch(`/reviews/${id}`, {
       method: "DELETE"
     })
       .then(() => {
@@ -76,7 +76,7 @@ function Single({ user, id }) {
     let comment=prompt('Write down your review');
     setReview(comment)
     console.log(review)
-    fetch(`https://phase-4-project-production.up.railway.app/reviews/${id}`, {
+    fetch(`/reviews/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
