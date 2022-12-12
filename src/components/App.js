@@ -14,7 +14,7 @@ function App() {
   const [id, setId] = useState(0)
 
   useEffect(() => {
-    fetch('https://phase-4-project-production.up.railway.app/me',{
+    fetch('https://dog-house-production.up.railway.app/me',{
       method: 'GET',
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -29,7 +29,7 @@ function App() {
   }, [])
 
   useEffect(() => {
-    fetch('https://phase-4-project-production.up.railway.app/dog_houses',{
+    fetch('https://dog-house-production.up.railway.app/dog_houses',{
       method: 'GET',
       headers: {
         "Access-Control-Allow-Origin": "*",
